@@ -1,6 +1,0 @@
-aws_access_key  = "..."
-aws_secret_key  = "..."
-aws_private_key = "/home/.ssh/id_rsa"
-aws_public_key  = "/home/.ssh/id_rsa.pub"
-aws_region      = "ca-central-1"
-aws_az          = "ca-central-1a"
