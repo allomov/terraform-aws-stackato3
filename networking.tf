@@ -9,59 +9,6 @@ resource "aws_vpc" "main" {
     }
 }
 
-/*
-  Public Subnet
-*/
-resource "aws_subnet" "vpc_public_subnet" {
-    vpc_id = "${aws_vpc.main.id}"
-    map_public_ip_on_launch = true
-
-    cidr_block = "${var.public_subnet_cidr}"
-    availability_zone = "${var.aws_az}"
-
-    tags {
-        Name = "${var.prefix}_bosh_public_subnet"
-    }
-}
-
-/*
-  Private Subnet
-*/
-resource "aws_subnet" "vpc_private_subnet" {
-    vpc_id = "${aws_vpc.main.id}"
-
-    cidr_block = "${var.private_subnet_cidr}"
-    availability_zone = "${var.aws_az}"
-
-    tags {
-        Name = "${var.prefix}_bosh_private_subnet"
-    }
-}
-
-/*
-  Create the Elastic IP
-*/
-resource "aws_eip" "bosh_eip" {
-    vpc = true
-}
-
-/*
-  NAT Gateway
- */
-resource "aws_nat_gateway" "vpc_nat_gateway" {
-    allocation_id = "${aws_eip.bosh_eip.id}"
-    subnet_id = "${aws_subnet.vpc_public_subnet.id}"
-}
-
-/*
-  Internet Gateway
- */
-resource "aws_internet_gateway" "vpc_internet_gateway" {
-    vpc_id = "${aws_vpc.main.id}"
-    tags {
-        Name = "${var.prefix}_bosh_internet_gateway"
-    }
-}
 
 /*
   Public routing table
@@ -75,9 +22,65 @@ resource "aws_route_table" "vpc_public_subnet_router" {
     }
 
     tags {
-        Name = "${var.prefix}_bosh_public_subnet_router"
+        Name = "${var.prefix}_stackato_public_subnet_router"
     }
 }
+
+
+/*
+  Public Subnet
+*/
+resource "aws_subnet" "vpc_public_subnet" {
+    vpc_id = "${aws_vpc.main.id}"
+    map_public_ip_on_launch = true
+
+    cidr_block = "${var.public_subnet_cidr}"
+    availability_zone = "${var.aws_az}"
+
+    tags {
+        Name = "${var.prefix}_stackato_public_subnet"
+    }
+}
+
+/*
+  Private Subnet
+*/
+resource "aws_subnet" "vpc_private_subnet" {
+    vpc_id = "${aws_vpc.main.id}"
+
+    cidr_block = "${var.private_subnet_cidr}"
+    availability_zone = "${var.aws_az}"
+
+    tags {
+        Name = "${var.prefix}_stackato_private_subnet"
+    }
+}
+
+/*
+  Create the Elastic IP
+*/
+resource "aws_eip" "stackato_eip" {
+    vpc = true
+}
+
+/*
+  NAT Gateway
+ */
+resource "aws_nat_gateway" "vpc_nat_gateway" {
+    allocation_id = "${aws_eip.stackato_eip.id}"
+    subnet_id = "${aws_subnet.vpc_public_subnet.id}"
+}
+
+/*
+  Internet Gateway
+ */
+resource "aws_internet_gateway" "vpc_internet_gateway" {
+    vpc_id = "${aws_vpc.main.id}"
+    tags {
+        Name = "${var.prefix}_stackato_internet_gateway"
+    }
+}
+
 
 resource "aws_route_table_association" "vpc_public_subnet_router_association" {
     subnet_id = "${aws_subnet.vpc_public_subnet.id}"
@@ -96,7 +99,7 @@ resource "aws_route_table" "vpc_private_subnet_router" {
     }
 
     tags {
-        Name = "${var.prefix}_bosh_private_subnet_route"
+        Name = "${var.prefix}_stackato_private_subnet_route"
     }
 }
 

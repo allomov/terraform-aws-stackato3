@@ -48,22 +48,22 @@ variable "private_subnet_cidr" {
     default = "10.0.1.0/24"
 }
 
-variable "bosh_internal_cidr" {
-    description = "CIDR for BOSH Subnet (by default BOSH uses Private Subnet)"
+variable "stackato_internal_cidr" {
+    description = "CIDR for stackato Subnet (by default stackato uses Private Subnet)"
     default = "${vars.private_subnet_cidr}"
 }
 
-variable "bosh_internal_gw" {
-    description = "BOSH Subnet internal gateway (by default BOSH uses Private Subnet)"
+variable "stackato_internal_gw" {
+    description = "stackato Subnet internal gateway (by default stackato uses Private Subnet)"
     default = "10.0.1.1"
 }
 
-variable "bosh_internal_ip" {
-    description = "CIDR for the Private Subnet (by default BOSH uses Private Subnet)"
+variable "stackato_internal_ip" {
+    description = "CIDR for the Private Subnet (by default stackato uses Private Subnet)"
     default = "10.0.1.3"
 }
 
 variable "core_node_user" {
     description = "core_node user name (default: ubuntu)"
-    default = "ubuntu"
+    default = "stackato"
 }
