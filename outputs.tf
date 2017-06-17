@@ -18,7 +18,7 @@ output "default_key_name" { value = "${var.aws_az}" }
 output "az" { value = "${var.aws_az}" }
 
 # output "default_key_name" {
-# 	bosh_key_name
+# 	stackato_key_name
 # }
 
 # output "default_security_groups" {

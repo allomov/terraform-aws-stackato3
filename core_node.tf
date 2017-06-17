@@ -1,6 +1,6 @@
 resource "aws_instance" "core_node" {
     ami = "${lookup(var.amis, var.aws_region)}"
-    instance_type = "t2.micro"
+    instance_type = "${lookup(var.flavors, var.core_node_size)}"
     key_name = "${aws_key_pair.core_node.key_name}"
     security_groups = [
         "${aws_security_group.ssh_only.id}"
@@ -37,8 +37,8 @@ resource "aws_instance" "core_node" {
             "sudo apt-add-repository ppa:ansible/ansible -y",
             "sudo apt-get update",
             "sudo apt-get install ansible=2.2.* -y",
-            "sudo ansible-galaxy install allomov.bosh-core_node",
-            "sudo ansible-playbook -i /etc/ansible/roles/allomov.bosh-core_node/examples/localhost/hosts /etc/ansible/roles/allomov.bosh-core_node/examples/localhost/playbook.yml"
+            "sudo ansible-galaxy install allomov.stackato-core_node",
+            "sudo ansible-playbook -i /etc/ansible/roles/allomov.stackato-core_node/examples/localhost/hosts /etc/ansible/roles/allomov.stackato-core_node/examples/localhost/playbook.yml"
         ]
     }
 
