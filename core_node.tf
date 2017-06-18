@@ -20,29 +20,15 @@ resource "aws_instance" "core_node" {
       timeout = "5m"
     }
 
-    provisioner "file" {
-        source = "${var.aws_private_key}"
-        destination = "/home/ubuntu/.ssh/id_rsa"
-    }
+    # provisioner "file" {
+    #     source = "${var.aws_private_key}"
+    #     destination = "/home/ubuntu/.ssh/id_rsa"
+    # }
 
-    provisioner "file" {
-        source = "${var.aws_public_key}"
-        destination = "/home/ubuntu/.ssh/id_rsa.pub"
-    }
-
-    provisioner "remote-exec" {
-        inline = [
-            "sudo apt-get update",
-            "sudo apt-get install software-properties-common -y",
-            "sudo apt-add-repository ppa:ansible/ansible -y",
-            "sudo apt-get update",
-            "sudo apt-get install ansible=2.2.* -y",
-            "sudo ansible-galaxy install allomov.stackato-core_node",
-            "sudo ansible-playbook -i /etc/ansible/roles/allomov.stackato-core_node/examples/localhost/hosts /etc/ansible/roles/allomov.stackato-core_node/examples/localhost/playbook.yml"
-        ]
-    }
-
-
+    # provisioner "file" {
+    #     source = "${var.aws_public_key}"
+    #     destination = "/home/ubuntu/.ssh/id_rsa.pub"
+    # }
 }
 
 resource "aws_key_pair" "core_node" {
