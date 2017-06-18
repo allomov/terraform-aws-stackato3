@@ -33,6 +33,16 @@ variable "amis" {
     }
 }
 
+variable "flavors" {
+    description = "Recomended sizes for HPE Helion Stackato"
+    default = {
+        small    = "t2.medium"
+        medium   = "m3.medium"
+        large    = "m3.large"
+    }
+}
+
+
 variable "vpc_cidr" {
     description = "CIDR for the whole VPC"
     default = "10.0.0.0/16"
@@ -57,6 +67,11 @@ variable "stackato_internal_gw" {
 variable "stackato_internal_ip" {
     description = "CIDR for the Private Subnet (by default stackato uses Private Subnet)"
     default = "10.0.1.3"
+}
+
+variable "core_node_size" {
+    description = "core_node size (default: small, available: medium, large)"
+    default = "small"
 }
 
 variable "core_node_user" {

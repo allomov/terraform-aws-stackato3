@@ -1,4 +1,4 @@
-# bosh-aws-stackato3
+# stackato-aws-stackato3
 
 # terraform + AWS + Stackato 3.6
 
@@ -16,7 +16,7 @@ Be sure to review the [License Terms](http://docs.stackato.com/admin/reference/e
 ## Purpose
 
 This Terraform script has the purpose of jumpstarting the Boostrapping process
-for BOSH.
+for stackato.
 
 ## Requirements
 
