@@ -48,10 +48,6 @@ variable "private_subnet_cidr" {
     default = "10.0.1.0/24"
 }
 
-variable "stackato_internal_cidr" {
-    description = "CIDR for stackato Subnet (by default stackato uses Private Subnet)"
-    default = "${vars.private_subnet_cidr}"
-}
 
 variable "stackato_internal_gw" {
     description = "stackato Subnet internal gateway (by default stackato uses Private Subnet)"
