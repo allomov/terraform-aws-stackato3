@@ -1,0 +1,9 @@
+# lucid64 stack is just a default stack that was made
+# in the create_stacks_table migration
+default: "alsek"
+
+stacks:
+- name: "alsek"
+  description: "Stackato Alsek Stack"
+- name: "cflinuxfs2"
+  description: "CF Linux FS2 Stack"

@@ -5,7 +5,7 @@ variable "aws_private_key" {}
 
 variable "prefix" {
   description = "A prefix to easily identify the resources in AWS"
-  default = "aws"
+  default = "stackato3"
 }
 
 variable "aws_region" {
@@ -57,7 +57,6 @@ variable "private_subnet_cidr" {
     description = "CIDR for the Private Subnet"
     default = "10.0.1.0/24"
 }
-
 
 variable "stackato_internal_gw" {
     description = "stackato Subnet internal gateway (by default stackato uses Private Subnet)"

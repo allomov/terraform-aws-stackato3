@@ -59,7 +59,7 @@ resource "aws_subnet" "vpc_private_subnet" {
 /*
   Create the Elastic IP
 */
-resource "aws_eip" "stackato_eip" {
+resource "aws_eip" "nat" {
     vpc = true
 }
 
@@ -67,7 +67,7 @@ resource "aws_eip" "stackato_eip" {
   NAT Gateway
  */
 resource "aws_nat_gateway" "vpc_nat_gateway" {
-    allocation_id = "${aws_eip.stackato_eip.id}"
+    allocation_id = "${aws_eip.nat.id}"
     subnet_id = "${aws_subnet.vpc_public_subnet.id}"
 }
 
@@ -128,5 +128,52 @@ resource "aws_security_group" "ssh_only" {
 
   tags {
     Name = "${var.prefix}_ssh_only_sg"
+  }
+}
+
+
+resource "aws_security_group" "http" {
+  vpc_id = "${aws_vpc.main.id}"
+  description = "Allow only SSH"
+
+  ingress {
+      from_port = 80
+      to_port = 80
+      protocol = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags {
+    Name = "${var.prefix}_http_sg"
+  }
+}
+
+resource "aws_security_group" "https" {
+  vpc_id = "${aws_vpc.main.id}"
+  description = "Allow only SSH"
+
+  ingress {
+      from_port = 443
+      to_port = 443
+      protocol = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags {
+    Name = "${var.prefix}_http_sg"
   }
 }
